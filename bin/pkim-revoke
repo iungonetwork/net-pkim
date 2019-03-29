@@ -1,0 +1,10 @@
+#!/bin/bash
+
+openssl ca \
+    -config /pki/ca.conf \
+    -revoke /pki/certs/$1.crt \
+    -crl_reason $2
+
+openssl ca -gencrl \
+    -config /pki/ca.conf \
+    -out /pki/ca.crl

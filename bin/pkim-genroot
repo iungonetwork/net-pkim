@@ -1,0 +1,17 @@
+#!/bin/bash
+
+openssl req -new \
+    -config /pki/ca.conf \
+    -out /pki/ca.csr \
+    -keyout /pki/ca.key
+
+openssl ca -selfsign \
+	-config /pki/ca.conf \
+	-in /pki/ca.csr \
+	-out /pki/ca.crt \
+	-extensions ca_ext \
+	-batch
+
+openssl ca -gencrl \
+    -config /pki/ca.conf \
+    -out /pki/ca.crl

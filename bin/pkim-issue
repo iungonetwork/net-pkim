@@ -1,0 +1,15 @@
+#!/bin/bash
+
+openssl req -new \
+    -config /pki/ca.conf \
+    -out /pki/certs/$1.csr \
+    -keyout /pki/certs/$1.key
+
+openssl ca \
+    -config /pki/ca.conf \
+    -in /pki/certs/$1.csr \
+    -out /pki/certs/$1.crt \
+    -subj "/CN=$1/" \
+    -extensions $2_ext \
+    -policy $3_pol \
+    -batch
